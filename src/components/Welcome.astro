@@ -1,8 +1,28 @@
 ---
 import "../styles/global.css";
 import RidleCard from "../components/RIdleCard";
+import Squares from "../components/Squares";
 ---
 
-<div id="container" class="flex justify-center items-center w-full h-screen">
-  <RidleCard client:load />
+<div
+  id="container"
+  class="relative w-full h-screen bg-slate-900 overflow-hidden"
+>
+  <!-- Lapisan Background -->
+  <div class="absolute inset-0 z-0">
+    <Squares
+      client:load
+      speed={0.5}
+      squareSize={40}
+      direction="diagonal"
+      borderColor="#334155"
+      hoverFillColor="#475569"
+    />
+  </div>
+  <!-- Lapisan Konten Utama -->
+  <div
+    class="pointer-events-none relative z-10 flex h-full w-full items-center justify-center"
+  >
+    <RidleCard client:load />
+  </div>
 </div>
