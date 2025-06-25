@@ -92,7 +92,7 @@ export default function RiddleCard() {
         colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
         animationSpeed={6}
         showBorder={false}
-        className="text-3xl font-black text-center mb-6"
+        className="text-4xl font-black text-center mb-6 py-2 px-4"
       >
         Random Riddles
       </GradientText>
