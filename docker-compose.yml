@@ -1,8 +1,0 @@
-version: "3.8"
-
-services:
-  riddles-web:
-    build: .
-    ports:
-      - "4321:4321"
-    restart: always

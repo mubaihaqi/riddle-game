@@ -1,32 +1,26 @@
-# Stage 1: Build the Astro application
-FROM node:20-alpine AS builder
+# Base image
+FROM node:20-alpine
 
+# Install pnpm
+RUN npm install -g pnpm
+
+# Set workdir
 WORKDIR /app
 
-# Copy pnpm-related files first to leverage Docker cache
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+# Copy files
+COPY package* ./
+COPY pnpm-lock.yaml ./
 
-# Install pnpm globally and then install dependencies
-RUN corepack enable && pnpm install --frozen-lockfile
+# Install dependencies
+RUN pnpm install
 
-# Copy the rest of the application source code
+# Copy all files
 COPY . .
 
-# Build the Astro project
 RUN pnpm build
 
-# Stage 2: Serve the built application
-# Use a lightweight Node.js image to serve the static files
-FROM node:20-alpine AS runner
-
-WORKDIR /app
-
-# Copy only the necessary files from the builder stage
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package.json /app/pnpm-lock.yaml /app/pnpm-workspace.yaml ./
-
-# Expose the port Astro's preview server runs on (default is 4321)
+# Expose Vite port
 EXPOSE 4321
 
-# Command to run the Astro preview server
-CMD ["pnpm", "preview"]
+# Start Vite preview server
+CMD ["pnpm", "preview", "--port", "4321", "--host", "0.0.0.0"]
