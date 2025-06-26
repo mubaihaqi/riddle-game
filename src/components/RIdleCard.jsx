@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SplitText from "./SplitText";
 import GradientText from "./GradientText";
+import AnimatedContent from "./AnimatedContent";
 
 export default function RiddleCard() {
   const [riddleData, setRiddleData] = useState(null);
@@ -87,16 +88,29 @@ export default function RiddleCard() {
   };
 
   return (
-    <div className="max-w-sm lg:min-w-3xl lg:max-w-2xl bg-slate-600/50 border-slate-700 backdrop-blur-md mx-auto rounded-xl border-2 p-8 text-white shadow-2xl">
-      <GradientText
-        colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
-        animationSpeed={6}
-        showBorder={false}
-        className="text-4xl font-black text-center mb-6 py-2 px-4"
-      >
-        Random Riddles
-      </GradientText>
-      {renderContent()}
-    </div>
+    <AnimatedContent
+      distance={150}
+      direction="vertical"
+      reverse={false}
+      duration={1.2}
+      ease="power3.out"
+      initialOpacity={0.2}
+      animateOpacity
+      scale={0.5}
+      threshold={0.1}
+      delay={0.1}
+    >
+      <div className="max-w-sm lg:min-w-3xl lg:max-w-2xl bg-slate-600/50 border-slate-700 backdrop-blur-md mx-auto rounded-xl border-2 p-8 text-white shadow-2xl">
+        <GradientText
+          colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
+          animationSpeed={6}
+          showBorder={false}
+          className="text-4xl font-black text-center mb-6 py-2 px-4"
+        >
+          Random Riddles
+        </GradientText>
+        {renderContent()}
+      </div>
+    </AnimatedContent>
   );
 }
